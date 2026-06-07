@@ -17,7 +17,7 @@
         compatible = "gpio-keys";
         wakeup_key_left: wakeup_key_left {
             /* Укажите здесь пин СТРОКИ вашей клавиши на левой половине */
-            gpios = <&pro_micro 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+            gpios = <&pro_micro 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
         };
     };
 
@@ -25,7 +25,7 @@
         compatible = "gpio-keys";
         wakeup_key_right: wakeup_key_right {
             /* Укажите здесь пин СТРОКИ вашей клавиши на правой половине */
-            gpios = <&pro_micro 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+            gpios = <&pro_micro 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
         };
     };
 
