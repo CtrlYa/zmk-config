@@ -1,0 +1,8 @@
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+
+/ {
+    soft_off_waker: soft_off_waker {
+        compatible = "zmk,soft-off-waker";
+    };
+};
