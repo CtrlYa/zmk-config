@@ -15,12 +15,12 @@
         compatible = "zmk,combos";
 
         soft_off_wake_left {
-            bindings = <&none>;
+            bindings = <&soft_off_waker>;
             key-positions = <25 26 27 28>;
         };
 
         soft_off_wake_right {
-            bindings = <&none>;
+            bindings = <&soft_off_waker>;
             key-positions = <31 32 33 34>;
         };
     };
