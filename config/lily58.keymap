@@ -11,23 +11,48 @@
 #include <dt-bindings/zmk/outputs.h>
 
 / {
-    /* 1. Триггер для ЛЕВОЙ половины */
+    /* 1. Объявляем физические или виртуальные клавиши через стандартный gpio-keys */
+    /* Это создает phandle-узлы, которые ZMK сможет "увидеть" */
+    left_keys: left_keys {
+        compatible = "gpio-keys";
+        wakeup_key_left: wakeup_key_left {
+            /* Укажите здесь пин СТРОКИ вашей клавиши на левой половине */
+            gpios = <&pro_micro 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+        };
+    };
+
+    right_keys: right_keys {
+        compatible = "gpio-keys";
+        wakeup_key_right: wakeup_key_right {
+            /* Укажите здесь пин СТРОКИ вашей клавиши на правой половине */
+            gpios = <&pro_micro 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+        };
+    };
+
+    /* 2. Привязываем созданные клавиши к драйверу пробуждения */
     wakeup_left: wakeup_left {
         compatible = "zmk,gpio-key-wakeup-trigger";
         wakeup-source;
-        trigger = <&pro_micro 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; // Пины левой кнопки
-        extra-gpios = <&pro_micro 5 GPIO_ACTIVE_HIGH>;
+        
+        /* ПЕРЕДАЕМ ССЫЛКУ на созданный выше узел (а не пины напрямую!) */
+        trigger = <&wakeup_key_left>; 
+
+        /* Укажите здесь пин СТОЛБЦА левой клавиши */
+        extra-gpios = <&pro_micro 10 GPIO_ACTIVE_HIGH>;
     };
 
-    /* 2. Триггер для ПРАВОЙ половины */
     wakeup_right: wakeup_right {
         compatible = "zmk,gpio-key-wakeup-trigger";
         wakeup-source;
-        trigger = <&pro_micro 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; // Пины правой кнопки
-        extra-gpios = <&pro_micro 6 GPIO_ACTIVE_HIGH>;
+        
+        /* ССЫЛКА на узел правой клавиши */
+        trigger = <&wakeup_key_right>; 
+
+        /* Укажите здесь пин СТОЛБЦА правой клавиши */
+        extra-gpios = <&pro_micro 10 GPIO_ACTIVE_HIGH>;
     };
 
-    /* 3. Регистрируем оба источника в системе питания */
+    /* 3. Регистрируем оба исправленных триггера в системе питания */
     soft_off_wakers {
         compatible = "zmk,soft-off-wakeup-sources";
         wakeup-sources = <&wakeup_left>, <&wakeup_right>;
