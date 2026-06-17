@@ -13,46 +13,57 @@
 / {
     /* 1. Объявляем физические или виртуальные клавиши через стандартный gpio-keys */
     /* Это создает phandle-узлы, которые ZMK сможет "увидеть" */
+
     left_keys: left_keys {
         compatible = "gpio-keys";
+
         wakeup_key_left: wakeup_key_left {
             /* Укажите здесь пин СТРОКИ вашей клавиши на левой половине */
+
             gpios = <&pro_micro 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
         };
     };
 
     right_keys: right_keys {
         compatible = "gpio-keys";
+
         wakeup_key_right: wakeup_key_right {
             /* Укажите здесь пин СТРОКИ вашей клавиши на правой половине */
+
             gpios = <&pro_micro 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
         };
     };
 
     /* 2. Привязываем созданные клавиши к драйверу пробуждения */
+
     wakeup_left: wakeup_left {
         compatible = "zmk,gpio-key-wakeup-trigger";
         wakeup-source;
-        
+
         /* ПЕРЕДАЕМ ССЫЛКУ на созданный выше узел (а не пины напрямую!) */
-        trigger = <&wakeup_key_left>; 
+
+        trigger = <&wakeup_key_left>;
 
         /* Укажите здесь пин СТОЛБЦА левой клавиши */
+
         extra-gpios = <&pro_micro 10 GPIO_ACTIVE_HIGH>;
     };
 
     wakeup_right: wakeup_right {
         compatible = "zmk,gpio-key-wakeup-trigger";
         wakeup-source;
-        
+
         /* ССЫЛКА на узел правой клавиши */
-        trigger = <&wakeup_key_right>; 
+
+        trigger = <&wakeup_key_right>;
 
         /* Укажите здесь пин СТОЛБЦА правой клавиши */
+
         extra-gpios = <&pro_micro 10 GPIO_ACTIVE_HIGH>;
     };
 
     /* 3. Регистрируем оба исправленных триггера в системе питания */
+
     soft_off_wakers {
         compatible = "zmk,soft-off-wakeup-sources";
         wakeup-sources = <&wakeup_left>, <&wakeup_right>;
@@ -108,9 +119,9 @@
             display-name = "MEDIA";
             bindings = <
 &trans  &trans        &trans            &trans              &trans  &trans                            &trans  &trans          &trans    &trans     &trans         &trans
-&trans  &none         &none             &none               &none   &kp CAPSLOCK                      &trans  &kp HOME        &kp UP    &kp END    &kp PG_UP      &trans
-&trans  &kp C_REWIND  &kp C_PLAY_PAUSE  &kp C_FAST_FORWARD  &none   &kp KP_NUMLOCK                    &trans  &kp LEFT_ARROW  &kp DOWN  &kp RIGHT  &kp PAGE_DOWN  &trans
-&trans  &kp C_VOL_DN  &kp K_MUTE        &kp C_VOL_UP        &none   &kp INSERT      &trans    &trans  &trans  &none           &none     &none      &none          &none
+&trans  &none         &none             &none               &none   &kp CAPSLOCK                      &none   &kp HOME        &kp UP    &kp END    &kp PG_UP      &trans
+&trans  &kp C_REWIND  &kp C_PLAY_PAUSE  &kp C_FAST_FORWARD  &none   &kp KP_NUMLOCK                    &none   &kp LEFT_ARROW  &kp DOWN  &kp RIGHT  &kp PAGE_DOWN  &trans
+&trans  &kp C_VOL_DN  &kp K_MUTE        &kp C_VOL_UP        &none   &kp INSERT      &trans    &trans  &none   &none           &none     &none      &none          &soft_off
                                         &trans              &trans  &trans          &trans    &trans  &trans  &trans          &trans
             >;
         };
