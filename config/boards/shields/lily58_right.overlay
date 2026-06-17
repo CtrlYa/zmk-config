@@ -1,9 +1,0 @@
-#include <dt-bindings/zmk/display.h>
-
-&nice_oled {
-    width = <128>;
-    height = <64>;
-    // опционально, если изображение зеркалит:
-    // segment-offset = <0>;
-    // com-invdir = <1>;
-};
