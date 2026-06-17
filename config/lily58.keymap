@@ -119,11 +119,11 @@
 
             display-name = "MEDIA";
             bindings = <
-&trans  &trans  &trans        &trans            &trans           &trans                            &trans              &trans          &trans           &trans     &trans         &trans
-&trans  &none   &none         &none             &none            &kp CAPSLOCK                      &kp K_CONTEXT_MENU  &kp HOME        &kp UP           &kp END    &kp PG_UP      &soft_off
-&trans  &none   &kp C_RW      &kp C_PLAY_PAUSE  &kp C_FF         &kp KP_NUMLOCK                    &msc SCRL_UP        &kp LEFT_ARROW  &kp DOWN         &kp RIGHT  &kp PAGE_DOWN  &studio_unlock
-&trans  &none   &kp C_VOL_DN  &kp K_MUTE        &kp C_VOLUME_UP  &kp INSERT      &trans    &trans  &msc SCRL_DOWN      &msc SCRL_LEFT  &msc SCRL_RIGHT  &none      &none          &none
-                              &trans            &trans           &trans          &trans    &trans  &trans              &trans          &trans
+&trans  &trans  &trans        &trans            &trans              &trans                            &trans              &trans          &trans           &trans     &trans         &trans
+&trans  &none   &none         &none             &none               &kp CAPSLOCK                      &kp K_CONTEXT_MENU  &kp HOME        &kp UP           &kp END    &kp PG_UP      &soft_off
+&trans  &none   &kp C_REWIND  &kp C_PLAY_PAUSE  &kp C_FAST_FORWARD  &kp KP_NUMLOCK                    &msc SCRL_UP        &kp LEFT_ARROW  &kp DOWN         &kp RIGHT  &kp PAGE_DOWN  &studio_unlock
+&trans  &none   &kp C_VOL_DN  &kp C_MUTE        &kp C_VOLUME_UP     &kp INSERT      &trans    &trans  &msc SCRL_DOWN      &msc SCRL_LEFT  &msc SCRL_RIGHT  &none      &none          &none
+                              &trans            &trans              &trans          &trans    &trans  &trans              &trans          &trans
             >;
         };
     };
