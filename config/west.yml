@@ -17,5 +17,9 @@ manifest:
     - name: zmk-nice-oled
       remote: mctechnology17
       revision: main
+    # support custom oled sizes
+    - name: zmk-oled-adapter
+      remote: mctechnology17
+      revision: main
   self:
     path: config
