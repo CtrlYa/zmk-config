@@ -1,6 +1,5 @@
-&ssd1306 {
-    width = <128>;
-    height = <64>;
-    segment-remap;
-    com-invdir;
+&oled_128x64 {
+    reverse-mode;        /* попробуйте это свойство */
+    /* segment-remap;    закомментируйте, если пробуете reverse-mode */
+    /* com-invdir;       закомментируйте */
 };
