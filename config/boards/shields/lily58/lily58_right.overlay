@@ -1,3 +1,6 @@
-&sh1106 {
-    reverse-mode;
+&ssd1306 {
+    width = <128>;
+    height = <64>;
+    segment-remap;
+    com-invdir;
 };
