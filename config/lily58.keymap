@@ -10,27 +10,31 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
 
-// 1. Активируем саму шину, если это необходимо
+// Обращаемся к шине I2C вашей платы
 &pro_micro_i2c {
     status = "okay";
-};
 
-// 2. ОТДЕЛЬНО обращаемся к экрану по его системной ссылке для изменения параметров
-&nice_oled {
-    width = <64>;  
-    height = <128>;
-    
-    // Ваши рабочие настройки против вертикального отзеркаливания:
-    segment-offset = <0>;
-    page-offset = <0>;
-    display-offset = <64>; 
-    multiplex-ratio = <127>; 
-    
-    segment-remap;
-    /delete-property/ com-invdir;
-    /delete-property/ com-sequential; // Убирает сжатие/растянутость
-    
-    prechargep = <0x22>;
+    // Переопределяем параметры экрана модуля по его реальному имени узла
+    oled: ssd1306@3c {
+        compatible = "solomon,ssd1306fb";
+        reg = <0x3c>;
+        
+        // Переключаем в портретный режим (вдоль короткой стороны)
+        width = <64>;  
+        height = <128>;
+        
+        // Ваши проверенные настройки против зеркальности:
+        segment-offset = <0>;
+        page-offset = <0>;
+        display-offset = <64>; 
+        multiplex-ratio = <127>; 
+        
+        segment-remap;
+        /delete-property/ com-invdir;
+        /delete-property/ com-sequential; // Убирает растянутость
+        
+        prechargep = <0x22>;
+    };
 };
 
 
