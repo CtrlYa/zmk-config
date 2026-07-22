@@ -10,26 +10,27 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
 
+// 1. Активируем саму шину, если это необходимо
 &pro_micro_i2c {
     status = "okay";
+};
 
-    // Используем знак амперсанда (&) для перехвата оригинального экрана модуля
-    &nice_oled {
-        width = <64>;  
-        height = <128>;
-        
-        // Ваши рабочие настройки, которые убрали зеркальность:
-        segment-offset = <0>;
-        page-offset = <0>;
-        display-offset = <64>; 
-        multiplex-ratio = <127>; 
-        
-        segment-remap;
-        /delete-property/ com-invdir;
-        /delete-property/ com-sequential; // Убирает сжатие и растянутость
-        
-        prechargep = <0x22>;
-    };
+// 2. ОТДЕЛЬНО обращаемся к экрану по его системной ссылке для изменения параметров
+&nice_oled {
+    width = <64>;  
+    height = <128>;
+    
+    // Ваши рабочие настройки против вертикального отзеркаливания:
+    segment-offset = <0>;
+    page-offset = <0>;
+    display-offset = <64>; 
+    multiplex-ratio = <127>; 
+    
+    segment-remap;
+    /delete-property/ com-invdir;
+    /delete-property/ com-sequential; // Убирает сжатие/растянутость
+    
+    prechargep = <0x22>;
 };
 
 
