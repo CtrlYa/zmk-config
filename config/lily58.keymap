@@ -26,14 +26,13 @@
         /delete-property/ page-offset;
         /delete-property/ display-offset;
         
-        // КОРРЕКЦИЯ ДЛЯ ЧИПА SSD1312 В РЕЖИМЕ 64х128:
-        segment-offset = <0>;
+        // НАСТРОЙКА ФИНАЛЬНОГО ВЫРАВНИВАНИЯ:
+        segment-offset = <64>;   // ИЗМЕНЕНО: Сдвигаем картинку из правого угла влево на всю ширину
         page-offset = <0>;
-        display-offset = <0>; 
+        display-offset = <0>;    // Оставляем 0, так как вертикаль встала отлично
         
-        // Меняем аппаратное направление осей сканирования для портретного режима
-        /delete-property/ segment-remap; // УДАЛЯЕМ (это выведет картинку из левого угла в правый)
-        com-invdir;                     // ДОБАВЛЯЕМ (это поднимет картинку из нижнего угла в верхний)
+        /delete-property/ segment-remap; 
+        com-invdir;                     
         
         /delete-property/ com-sequential; 
         prechargep = <0x22>;
