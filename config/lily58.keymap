@@ -18,8 +18,8 @@
     oled: ssd1306@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
-        width = <64>;  
-        height = <128>;
+        width = <128>;  
+        height = <64>;
         multiplex-ratio = <127>; 
         
         /delete-property/ segment-offset;
