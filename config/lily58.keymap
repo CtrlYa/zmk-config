@@ -16,7 +16,7 @@
 
     // Переопределяем параметры экрана модуля по его реальному имени узла
     oled: ssd1306@3c {
-        compatible = "solomon,ssd1306fb";
+         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
         width = <128>;  
         height = <64>;
@@ -29,8 +29,9 @@
         segment-offset = <0>;
         page-offset = <0>;
         
-        // НАСТРОЙКА ПОДЪЕМА: Выталкиваем картинку из нижнего угла строго вверх
-        display-offset = <0>; 
+        // ФИНАЛЬНАЯ КОРРЕКЦИЯ: Поднимаем картинку вверх, чтобы убрать пустые 30%
+        // Если <32> поднимет недостаточно, замените на <40>
+        display-offset = <32>; 
         
         segment-remap;                  
         /delete-property/ com-invdir;   
