@@ -18,17 +18,25 @@
     oled: ssd1306@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
-        width = <64>;
+        width = <64>;  
         height = <128>;
-        segment-offset = <32>;
+        multiplex-ratio = <127>; 
+        
+        // 1. Принудительно очищаем старые параметры модуля, которые блокируют сдвиг
+        /delete-property/ segment-offset;
+        /delete-property/ page-offset;
+        /delete-property/ display-offset;
+        
+        // 2. Задаем новые агрессивные значения для вывода из угла в центр
+        segment-offset = <64>;   // Сдвигаем на 64 пикселя вправо (убираем левый угол)
         page-offset = <0>;
-        display-offset = <0>;
-        multiplex-ratio = <127>;
+        display-offset = <0>;    // Сдвигаем на 0 (поднимаем из нижнего угла)
+        
+        // Компенсация зеркальности на ssd1312
         segment-remap;
         /delete-property/ com-invdir;
-
         /delete-property/ com-sequential; 
-
+        
         prechargep = <0x22>;
     };
 };
