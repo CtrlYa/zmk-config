@@ -30,7 +30,7 @@
         page-offset = <0>;
         
         // НАСТРОЙКА ПОДЪЕМА: Выталкиваем картинку из нижнего угла строго вверх
-        display-offset = <32>; 
+        display-offset = <0>; 
         
         segment-remap;                  
         /delete-property/ com-invdir;   
