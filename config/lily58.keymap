@@ -22,21 +22,20 @@
         height = <128>;
         multiplex-ratio = <127>; 
         
-        // 1. Принудительно очищаем старые параметры модуля, которые блокируют сдвиг
         /delete-property/ segment-offset;
         /delete-property/ page-offset;
         /delete-property/ display-offset;
         
-        // 2. Задаем новые агрессивные значения для вывода из угла в центр
-        segment-offset = <64>;   // Сдвигаем на 64 пикселя вправо (убираем левый угол)
+        // КОРРЕКЦИЯ ДЛЯ ЧИПА SSD1312 В РЕЖИМЕ 64х128:
+        segment-offset = <0>;
         page-offset = <0>;
-        display-offset = <0>;    // Сдвигаем на 0 (поднимаем из нижнего угла)
+        display-offset = <0>; 
         
-        // Компенсация зеркальности на ssd1312
-        segment-remap;
-        /delete-property/ com-invdir;
+        // Меняем аппаратное направление осей сканирования для портретного режима
+        /delete-property/ segment-remap; // УДАЛЯЕМ (это выведет картинку из левого угла в правый)
+        com-invdir;                     // ДОБАВЛЯЕМ (это поднимет картинку из нижнего угла в верхний)
+        
         /delete-property/ com-sequential; 
-        
         prechargep = <0x22>;
     };
 };
