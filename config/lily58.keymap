@@ -18,21 +18,17 @@
     oled: ssd1306@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
-        
-        // Переключаем в портретный режим (вдоль короткой стороны)
-        width = <64>;  
-        height = <128>;
-        
-        // Ваши проверенные настройки против зеркальности:
+        width = <128>;
+        height = <64>;
         segment-offset = <0>;
         page-offset = <0>;
-        display-offset = <64>; 
-        multiplex-ratio = <127>; 
-        
+        display-offset = <64>;
+        multiplex-ratio = <63>;
         segment-remap;
         /delete-property/ com-invdir;
-        /delete-property/ com-sequential; // Убирает растянутость
-        
+
+        /delete-property/ com-sequential; 
+
         prechargep = <0x22>;
     };
 };
