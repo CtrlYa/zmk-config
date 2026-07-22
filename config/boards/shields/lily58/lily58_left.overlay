@@ -1,5 +1,0 @@
-&oled_128x64 {
-    reverse-mode;        /* попробуйте это свойство */
-    /* segment-remap;    закомментируйте, если пробуете reverse-mode */
-    /* com-invdir;       закомментируйте */
-};
