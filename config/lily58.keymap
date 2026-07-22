@@ -26,13 +26,13 @@
         /delete-property/ page-offset;
         /delete-property/ display-offset;
         
-        // НАСТРОЙКА ФИНАЛЬНОГО ВЫРАВНИВАНИЯ:
-        segment-offset = <64>;   // ИЗМЕНЕНО: Сдвигаем картинку из правого угла влево на всю ширину
-        page-offset = <0>;
-        display-offset = <0>;    // Оставляем 0, так как вертикаль встала отлично
+        // Перенаправляем адресацию страниц памяти, чтобы выровнять левый край
+        segment-offset = <0>;
+        page-offset = <8>;       // Меняем стартовый блок памяти для выравнивания
+        display-offset = <0>; 
         
-        /delete-property/ segment-remap; 
-        com-invdir;                     
+        segment-remap;           // ВОЗВРАЩАЕМ: Аппаратно перенаправляет столбцы налево
+        com-invdir;              // Оставляем: Держит картинку вверху
         
         /delete-property/ com-sequential; 
         prechargep = <0x22>;
