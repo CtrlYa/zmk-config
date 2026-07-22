@@ -26,14 +26,16 @@
         /delete-property/ page-offset;
         /delete-property/ display-offset;
         
+        // Сбрасываем сдвиги в ноль — они больше не нужны
         segment-offset = <0>;
         page-offset = <0>;
         display-offset = <0>; 
         
-        /delete-property/ segment-remap; // Отключен, так как при нем картинка улетает
-        com-invdir;                       // Включен для правильной вертикали
+        // ФИНАЛЬНАЯ комбинация осей для выравнивания по левому верхнему краю:
+        segment-remap;                  // ВКЛЮЧАЕМ: это перенесет картинку справа налево
+        /delete-property/ com-invdir;   // УДАЛЯЕМ: это вернет нормальную ориентацию (не вверх ногами)
         
-        /delete-property/ com-sequential; // Отключаем, чтобы убрать растянутость
+        /delete-property/ com-sequential; // Оставляем удаленным (сохраняет правильный масштаб)
         prechargep = <0x22>;
     };
 };
