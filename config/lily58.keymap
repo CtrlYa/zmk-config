@@ -30,13 +30,10 @@
         page-offset = <0>;
         display-offset = <0>; 
         
-        // Переключаем развертку столбцов, чтобы принудительно уйти налево
-        segment-remap; 
-        /delete-property/ com-invdir; // Меняем комбинацию осей, так как вернулся segment-remap
+        /delete-property/ segment-remap; // Отключен, так как при нем картинка улетает
+        com-invdir;                       // Включен для правильной вертикали
         
-        // Включаем com-sequential обратно (он управляет альтернативным шагом строк)
-        com-sequential; 
-        
+        /delete-property/ com-sequential; // Отключаем, чтобы убрать растянутость
         prechargep = <0x22>;
     };
 };
