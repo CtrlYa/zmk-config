@@ -20,6 +20,6 @@
 ---
 include:
   - board: nice_nano_v2
-    shield: lily58_left zmk-nice-oled 
+    shield: lily58_left nice-oled 
   - board: nice_nano_v2
-    shield: lily58_right zmk-nice-oled 
+    shield: lily58_right nice-oled 
