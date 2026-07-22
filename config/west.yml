@@ -4,9 +4,6 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    # support nice_oled and nice_epaper
-    - name: CtrlYa
-      url-base: https://github.com/CtrlYa
     # Additional modules containing boards/shields/custom code can be listed here as well
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
     - name: mctechnology17
@@ -15,10 +12,6 @@ manifest:
     - name: zmk
       remote: zmkfirmware
       import: app/west.yml
-    # support custom oled sizes
-    - name: zmk-oled-adapter
-      remote: CtrlYa
-      revision: main
     # support nice_oled and nice_epaper
     - name: zmk-nice-oled
       remote: mctechnology17
