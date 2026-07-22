@@ -26,15 +26,17 @@
         /delete-property/ page-offset;
         /delete-property/ display-offset;
         
-        // АППАРАТНЫЙ СДВИГ ВЛЕВО ДЛЯ ПОРТРЕТНОГО РЕЖИМА SSD1312:
         segment-offset = <0>;
-        page-offset = <4>;       // Сдвигаем начальный блок адресов RAM влево (если сместится не до конца, попробуйте <8>)
+        page-offset = <0>;
         display-offset = <0>; 
         
-        /delete-property/ segment-remap; // Отключаем, чтобы вернуть картинку в верхнюю половину
-        com-invdir;                       // Оставляем включенным для правильной вертикали
+        // Переключаем развертку столбцов, чтобы принудительно уйти налево
+        segment-remap; 
+        /delete-property/ com-invdir; // Меняем комбинацию осей, так как вернулся segment-remap
         
-        /delete-property/ com-sequential; 
+        // Включаем com-sequential обратно (он управляет альтернативным шагом строк)
+        com-sequential; 
+        
         prechargep = <0x22>;
     };
 };
