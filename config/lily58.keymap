@@ -11,40 +11,43 @@
 #include <dt-bindings/zmk/outputs.h>
 
 // Обращаемся к шине I2C вашей платы
+
 &pro_micro_i2c {
     status = "okay";
 
     // Переопределяем параметры экрана модуля по его реальному имени узла
+
     oled: ssd1306@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
-        
+
         // УВЕЛИЧИВАЕМ ДЛИННУЮ СТОРОНУ: Снимаем ограничение в 128 пикселей.
         // Физический предел контроллера для работы с мультиплексом 127 — это 128 столбцов (но из-за структуры адресации 
         // чипа SSD1312, чтобы открыть "заблокированные" 30%, здесь нужно форсировать разрешение).
-        width = <128>;  
+
+        width = <128>;
         height = <64>;  // Оставляем 64, так как короткая сторона занята идеально
-        multiplex-ratio = <127>; 
-        
+        multiplex-ratio = <127>;
+
         /delete-property/ segment-offset;
         /delete-property/ page-offset;
         /delete-property/ display-offset;
-        
+
         // НАСТРОЙКА СДВИГА ДЛЯ ЗАПОЛНЕНИЯ ПУСТЫХ 30%:
         // Так как display-offset уводил картинку вправо, мы используем segment-offset 
         // для заполнения оставшегося пространства вдоль длинной стороны.
+
         segment-offset = <0>;   // Сдвинет картинку и заполнит пустые 30% длины (если не хватит, попробуйте <40>)
         page-offset = <0>;       // Сбрасываем в 0, так как выравниваем по длинной стороне
         display-offset = <0>;    // Оставляем в 0, чтобы картинка не уезжала вбок
-        
-        segment-remap;                  
-        /delete-property/ com-invdir;   
-        
-        /delete-property/ com-sequential; 
+        segment-remap;
+
+        /delete-property/ com-invdir;
+        /delete-property/ com-sequential;
+
         prechargep = <0x22>;
     };
 };
-
 
 / {
     /* 1. Объявляем физические или виртуальные клавиши через стандартный gpio-keys */
@@ -118,11 +121,11 @@
 
             display-name = "MAIN";
             bindings = <
-&kp TILDE  &kp N1  &kp N2  &kp N3            &kp N4        &kp N5                               &kp N6  &kp N7     &kp N8        &kp N9   &kp N0            &kp EQUAL
-&kp ESC    &kp Q   &kp W   &kp E             &kp R         &kp T                                &kp Y   &kp U      &kp I         &kp O    &kp P             &kp LEFT_BRACKET
-&kp TAB    &kp A   &kp S   &kp D             &kp F         &kp G                                &kp H   &kp J      &kp K         &kp L    &kp SEMI          &kp RIGHT_BRACKET
-&kp LSHFT  &kp Z   &kp X   &kp C             &kp V         &kp B   &kp DELETE    &kp BACKSPACE  &kp N   &kp M      &kp COMMA     &kp DOT  &kp SINGLE_QUOTE  &kp SLASH
-                           &kp LEFT_CONTROL  &kp LEFT_GUI  &mo 1   &kp SPACE     &kp RET        &mo 2   &kp MINUS  &kp LEFT_ALT
+&kp TILDE2  &kp N1  &kp N2  &kp N3            &kp N4        &kp N5                               &kp N6  &kp N7     &kp N8        &kp N9   &kp N0            &kp EQUAL
+&kp ESC     &kp Q   &kp W   &kp E             &kp R         &kp T                                &kp Y   &kp U      &kp I         &kp O    &kp P             &kp LEFT_BRACKET
+&kp TAB     &kp A   &kp S   &kp D             &kp F         &kp G                                &kp H   &kp J      &kp K         &kp L    &kp SEMI          &kp RIGHT_BRACKET
+&kp LSHFT   &kp Z   &kp X   &kp C             &kp V         &kp B   &kp DELETE    &kp BACKSPACE  &kp N   &kp M      &kp COMMA     &kp DOT  &kp SINGLE_QUOTE  &kp SLASH
+                            &kp LEFT_CONTROL  &kp LEFT_GUI  &mo 1   &kp SPACE     &kp RET        &mo 2   &kp MINUS  &kp LEFT_ALT
             >;
         };
 
@@ -140,7 +143,7 @@
 &soft_off  &bt BT_CLR         &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &none                     &none          &none            &none        &none         &none                 &kp K_CALC
 &trans     &ext_power EP_ON   &bt BT_SEL 3  &bt BT_SEL 4  &none         &none                     &kp KP_DIVIDE  &kp KP_ASTERISK  &kp KP_PLUS  &kp KP_MINUS  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS
 &trans     &ext_power EP_OFF  &out OUT_BLE  &out OUT_USB  &out OUT_TOG  &none   &trans    &trans  &kp BACKSLASH  &kp COMMA        &kp DOT      &kp EQUAL     &kp LEFT_BRACE        &kp RIGHT_BRACE
-                                            &trans        &trans        &trans  &trans    &trans  &trans         &trans           &trans
+                                            &trans        &trans        &trans  &trans    &trans  &tog 3         &trans           &trans
             >;
         };
 
@@ -159,6 +162,16 @@
 &trans  &none   &kp C_PREV    &kp C_PLAY_PAUSE  &kp C_NEXT       &kp KP_NUMLOCK                    &kp PG_UP           &kp LEFT_ARROW  &kp DOWN  &kp RIGHT  &none   &studio_unlock
 &trans  &none   &kp C_VOL_DN  &kp C_MUTE        &kp C_VOLUME_UP  &kp INSERT      &trans    &trans  &kp PG_DN           &none           &none     &none      &none   &none
                               &trans            &trans           &trans          &trans    &trans  &trans              &trans          &trans
+            >;
+        };
+
+        HELLDIVER {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans        &trans                            &trans  &trans          &trans          &trans           &trans  &trans
+&trans  &trans  &trans  &trans  &trans        &trans                            &none   &none           &kp UP          &none            &none   &none
+&trans  &trans  &trans  &trans  &trans        &trans                            &none   &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &none   &none
+&trans  &trans  &trans  &trans  &trans        &trans  &trans    &trans          &none   &none           &none           &none            &none   &none
+                        &trans  &kp LEFT_ALT  &trans  &trans    &kp LEFT_SHIFT  &trans  &trans          &trans
             >;
         };
     };
